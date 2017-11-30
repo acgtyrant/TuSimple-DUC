@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from solver import Solver
 import ConfigParser
 import sys
