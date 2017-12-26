@@ -1,5 +1,5 @@
 import mxnet as mx
-from resnet import get_resnet_hdc
+from symbol_resnet import resnet
 
 
 def get_symbol_duc_hdc(label_num=19, ignore_label=255, bn_use_global_stats=True,
@@ -21,7 +21,7 @@ def get_symbol_duc_hdc(label_num=19, ignore_label=255, bn_use_global_stats=True,
 
     """
     # Base Network
-    res = get_resnet_hdc(bn_use_global_stats=bn_use_global_stats)
+    res = resnet(units=(3, 4, 23, 3), filter_list=(64, 256, 512, 1024, 2048))
 
     # ASPP
     aspp_list = list()

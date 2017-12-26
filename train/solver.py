@@ -208,6 +208,14 @@ class Solver(object):
 
         module = mx.module.Module(self.symbol, context=self.ctx, data_names=self.data_name, label_names=self.label_name)
 
+        _, arg_params, aux_params = mx.model.load_checkpoint(
+                os.path.join(self.load_model_dir, 'resnet-101'), 0)
+        module.bind(
+                data_shapes=[(self.data_name[0], self.data_shape[0])],
+                label_shapes=[(self.label_name[0], self.label_shape[0])])
+        module.set_params(
+                arg_params, aux_params, allow_missing=True, allow_extra=True)
+
         # initialize (base_module now no more do this initialization)
         train_data.reset()
         module.fit(
